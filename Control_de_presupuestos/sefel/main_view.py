@@ -1,0 +1,382 @@
+import tkinter as tk
+from tkinter import ttk
+
+from .styles import (
+    COLOR_PRINCIPAL,
+    COLOR_FONDO,
+    COLOR_BLANCO,
+    COLOR_TEXTO,
+    COLOR_TEXTO_SECUNDARIO,
+    COLOR_LINEA,
+    FUENTE_TITULO,
+    FUENTE_NORMAL,
+    FUENTE_NORMAL_NEGRITA,
+    FUENTE_ENTRADA
+)
+
+class MainView:
+
+    def __init__(self, ventana, usuario="Administración"):
+        self.ventana = ventana
+        self.usuario = usuario
+
+        self.limpiar_ventana()
+        self.crear_interfaz()
+
+    def limpiar_ventana(self):
+        for widget in self.ventana.winfo_children():
+            widget.destroy()
+
+    def crear_interfaz(self):
+        self.crear_barra_superior()
+        self.crear_cuerpo()
+
+    def crear_barra_superior(self):
+
+        barra_superior = tk.Frame(
+            self.ventana,
+            bg=COLOR_PRINCIPAL,
+            height=55
+        )
+
+        barra_superior.pack(fill="x")
+        barra_superior.pack_propagate(False)
+
+        titulo = tk.Label(
+            barra_superior,
+            text="SEFEL | Control de presupuestos y gastos",
+            bg=COLOR_PRINCIPAL,
+            fg=COLOR_BLANCO,
+            font=("Arial", 13, "bold")
+        )
+
+        titulo.pack(
+            side="left",
+            padx=25
+        )
+
+        texto_app = tk.Label(
+            barra_superior,
+            text="Aplicación de escritorio",
+            bg=COLOR_PRINCIPAL,
+            fg=COLOR_BLANCO,
+            font=("Arial", 9)
+        )
+
+        texto_app.pack(
+            side="right",
+            padx=25
+        )
+
+    def crear_cuerpo(self):
+
+        cuerpo = tk.Frame(
+            self.ventana,
+            bg=COLOR_FONDO
+        )
+
+        cuerpo.pack(
+            fill="both",
+            expand=True
+        )
+
+        self.crear_menu_lateral(cuerpo)
+        self.crear_contenido_principal(cuerpo)
+
+    def crear_menu_lateral(self, cuerpo):
+
+        menu = tk.Frame(
+            cuerpo,
+            bg=COLOR_BLANCO,
+            width=170
+        )
+
+        menu.pack(
+            side="left",
+            fill="y"
+        )
+
+        menu.pack_propagate(False)
+
+        titulo_menu = tk.Label(
+            menu,
+            text="MENÚ PRINCIPAL",
+            bg=COLOR_BLANCO,
+            fg=COLOR_TEXTO_SECUNDARIO,
+            font=("Arial", 8, "bold")
+        )
+
+        titulo_menu.pack(
+            anchor="w",
+            padx=20,
+            pady=(20, 10)
+        )
+
+        botones = [
+            "Obras",
+            "Presupuestos",
+            "Gastos",
+            "Comparar costos"
+        ]
+
+        for texto in botones:
+
+            bg = "#e8f1f5" if texto == "Obras" else COLOR_BLANCO
+            fuente = FUENTE_NORMAL_NEGRITA if texto == "Obras" else FUENTE_NORMAL
+
+            boton = tk.Button(
+                menu,
+                text=texto,
+                bg=bg,
+                fg=COLOR_TEXTO,
+                activebackground="#e8f1f5",
+                relief="flat",
+                anchor="w",
+                font=fuente,
+                padx=20,
+                pady=8
+            )
+
+            boton.pack(fill="x")
+
+        espacio = tk.Frame(
+            menu,
+            bg=COLOR_BLANCO
+        )
+
+        espacio.pack(
+            fill="both",
+            expand=True
+        )
+
+        linea = tk.Frame(
+            menu,
+            bg=COLOR_LINEA,
+            height=1
+        )
+
+        linea.pack(
+            fill="x",
+            padx=15
+        )
+
+        usuario = tk.Label(
+            menu,
+            text=f"Usuario: {self.usuario}",
+            bg=COLOR_BLANCO,
+            fg=COLOR_TEXTO_SECUNDARIO,
+            font=("Arial", 8)
+        )
+
+        usuario.pack(
+            anchor="w",
+            padx=20,
+            pady=(10, 5)
+        )
+
+        cerrar = tk.Label(
+            menu,
+            text="Cerrar sesión",
+            bg=COLOR_BLANCO,
+            fg=COLOR_TEXTO,
+            font=("Arial", 8, "bold"),
+            cursor="hand2"
+        )
+
+        cerrar.pack(
+            anchor="w",
+            padx=20,
+            pady=(0, 20)
+        )
+
+    def crear_contenido_principal(self, cuerpo):
+
+        contenido = tk.Frame(
+            cuerpo,
+            bg=COLOR_FONDO
+        )
+
+        contenido.pack(
+            side="left",
+            fill="both",
+            expand=True,
+            padx=30,
+            pady=25
+        )
+
+        titulo = tk.Label(
+            contenido,
+            text="PANTALLA PRINCIPAL · OBRAS",
+            bg=COLOR_FONDO,
+            fg=COLOR_TEXTO,
+            font=FUENTE_TITULO
+        )
+
+        titulo.pack(anchor="w")
+
+        linea = tk.Frame(
+            contenido,
+            bg=COLOR_LINEA,
+            height=2
+        )
+
+        linea.pack(
+            fill="x",
+            pady=(8, 8)
+        )
+
+        subtitulo = tk.Label(
+            contenido,
+            text="Listado de obras registradas",
+            bg=COLOR_FONDO,
+            fg=COLOR_TEXTO_SECUNDARIO,
+            font=FUENTE_NORMAL
+        )
+
+        subtitulo.pack(
+            anchor="w",
+            pady=(0, 20)
+        )
+
+        self.crear_panel_obras(contenido)
+
+    def crear_panel_obras(self, contenido):
+
+        panel = tk.Frame(
+            contenido,
+            bg=COLOR_BLANCO,
+            bd=1,
+            relief="solid",
+            padx=20,
+            pady=20
+        )
+
+        panel.pack(
+            fill="both",
+            expand=True
+        )
+
+        label_buscar = tk.Label(
+            panel,
+            text="Buscar obra",
+            bg=COLOR_BLANCO,
+            fg=COLOR_TEXTO,
+            font=FUENTE_NORMAL_NEGRITA
+        )
+
+        label_buscar.pack(anchor="w")
+
+        fila_busqueda = tk.Frame(
+            panel,
+            bg=COLOR_BLANCO
+        )
+
+        fila_busqueda.pack(
+            fill="x",
+            pady=(5, 20)
+        )
+
+        self.entrada_busqueda = tk.Entry(
+            fila_busqueda,
+            font=FUENTE_ENTRADA
+        )
+
+        self.entrada_busqueda.pack(
+            side="left",
+            fill="x",
+            expand=True,
+            ipady=5
+        )
+
+        boton_nueva_obra = tk.Button(
+            fila_busqueda,
+            text="+ Nueva obra",
+            bg=COLOR_PRINCIPAL,
+            fg=COLOR_BLANCO,
+            activebackground=COLOR_PRINCIPAL,
+            activeforeground=COLOR_BLANCO,
+            font=FUENTE_NORMAL_NEGRITA,
+            cursor="hand2",
+            width=15
+        )
+
+        boton_nueva_obra.pack(
+            side="right",
+            padx=(20, 0),
+            ipady=5
+        )
+
+        columnas = (
+            "obra",
+            "presupuesto",
+            "gastos",
+            "accion"
+        )
+
+        self.tabla = ttk.Treeview(
+            panel,
+            columns=columnas,
+            show="headings",
+            height=12
+        )
+
+        self.tabla.heading("obra", text="Obra")
+        self.tabla.heading("presupuesto", text="Presupuesto inicial")
+        self.tabla.heading("gastos", text="Gastos registrados")
+        self.tabla.heading("accion", text="Acción")
+
+        self.tabla.column("obra", width=220)
+        self.tabla.column("presupuesto", width=180, anchor="center")
+        self.tabla.column("gastos", width=180, anchor="center")
+        self.tabla.column("accion", width=120, anchor="center")
+
+        self.tabla.insert(
+            "",
+            "end",
+            values=(
+                "Galpón A",
+                "$ 1.300.000",
+                "$ 1.300.000",
+                "Ver costos"
+            )
+        )
+
+        self.tabla.insert(
+            "",
+            "end",
+            values=(
+                "Montaje B",
+                "$ 2.000.000",
+                "$ 1.250.000",
+                "Ver costos"
+            )
+        )
+
+        self.tabla.insert(
+            "",
+            "end",
+            values=(
+                "Obra C",
+                "$ 900.000",
+                "$ 380.000",
+                "Ver costos"
+            )
+        )
+
+        self.tabla.pack(
+            fill="both",
+            expand=True
+        )
+
+        mensaje = tk.Label(
+            panel,
+            text="Seleccione una obra para consultar su presupuesto y sus gastos.",
+            bg=COLOR_BLANCO,
+            fg=COLOR_TEXTO_SECUNDARIO,
+            font=("Arial", 9)
+        )
+
+        mensaje.pack(
+            anchor="w",
+            pady=(10, 0)
+        )

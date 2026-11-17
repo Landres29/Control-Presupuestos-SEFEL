@@ -1,3 +1,4 @@
+from .main_view import MainView
 import tkinter as tk
 from tkinter import messagebox
 
@@ -237,4 +238,9 @@ class LoginView:
         messagebox.showinfo(
             "Acceso",
             "Credenciales ingresadas."
+        )
+
+        MainView(
+            self.ventana,
+            usuario=usuario
         )
