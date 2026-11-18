@@ -24,6 +24,16 @@ def crear_base_datos():
         )
     """)
 
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS presupuestos (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            obra_id INTEGER NOT NULL,
+            partida TEXT NOT NULL,
+            monto REAL NOT NULL,
+            FOREIGN KEY (obra_id) REFERENCES obras(id)
+        )
+    """)
+
     conexion.commit()
     conexion.close()
 
@@ -60,3 +70,62 @@ def obtener_obras():
 
     conexion.close()
     return obras
+
+
+def agregar_presupuesto(obra_id, partida, monto):
+    conexion = obtener_conexion()
+    cursor = conexion.cursor()
+
+    cursor.execute(
+        """
+        INSERT INTO presupuestos (obra_id, partida, monto)
+        VALUES (?, ?, ?)
+        """,
+        (obra_id, partida, monto)
+    )
+
+    conexion.commit()
+    conexion.close()
+
+
+def obtener_presupuestos():
+    conexion = obtener_conexion()
+    cursor = conexion.cursor()
+
+    cursor.execute(
+        """
+        SELECT
+            presupuestos.id,
+            obras.nombre,
+            presupuestos.partida,
+            presupuestos.monto
+        FROM presupuestos
+        INNER JOIN obras
+            ON presupuestos.obra_id = obras.id
+        ORDER BY presupuestos.id DESC
+        """
+    )
+
+    presupuestos = cursor.fetchall()
+
+    conexion.close()
+    return presupuestos
+
+
+def obtener_total_presupuesto_obra(obra_id):
+    conexion = obtener_conexion()
+    cursor = conexion.cursor()
+
+    cursor.execute(
+        """
+        SELECT COALESCE(SUM(monto), 0)
+        FROM presupuestos
+        WHERE obra_id = ?
+        """,
+        (obra_id,)
+    )
+
+    total = cursor.fetchone()[0]
+
+    conexion.close()
+    return total
