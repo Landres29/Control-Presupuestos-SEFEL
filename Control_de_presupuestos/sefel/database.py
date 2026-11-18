@@ -214,3 +214,41 @@ def obtener_total_gastos_obra(obra_id):
 
     conexion.close()
     return total
+
+
+def obtener_resumen_costos():
+    conexion = obtener_conexion()
+    cursor = conexion.cursor()
+
+    cursor.execute("""
+        SELECT
+            obras.id,
+            obras.nombre,
+
+            COALESCE(
+                (
+                    SELECT SUM(p.monto)
+                    FROM presupuestos p
+                    WHERE p.obra_id = obras.id
+                ),
+                0
+            ) AS presupuesto,
+
+            COALESCE(
+                (
+                    SELECT SUM(g.monto)
+                    FROM gastos g
+                    WHERE g.obra_id = obras.id
+                ),
+                0
+            ) AS gastos
+
+        FROM obras
+
+        ORDER BY obras.id DESC
+    """)
+
+    datos = cursor.fetchall()
+
+    conexion.close()
+    return datos
