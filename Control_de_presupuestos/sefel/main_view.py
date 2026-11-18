@@ -112,14 +112,14 @@ class MainView:
             pady=(20, 10)
         )
 
-        botones = [
-            "Obras",
-            "Presupuestos",
-            "Gastos",
-            "Comparar costos"
+        opciones = [
+            ("Obras", None),
+            ("Presupuestos", self.ir_presupuestos),
+            ("Gastos", self.ir_gastos),
+            ("Comparar costos", self.ir_comparacion)
         ]
 
-        for texto in botones:
+        for texto, comando in opciones:
 
             bg = "#e8f1f5" if texto == "Obras" else COLOR_BLANCO
             fuente = FUENTE_NORMAL_NEGRITA if texto == "Obras" else FUENTE_NORMAL
@@ -127,6 +127,7 @@ class MainView:
             boton = tk.Button(
                 menu,
                 text=texto,
+                command=comando,
                 bg=bg,
                 fg=COLOR_TEXTO,
                 activebackground="#e8f1f5",
@@ -380,3 +381,15 @@ class MainView:
             anchor="w",
             pady=(10, 0)
         )
+
+    def ir_presupuestos(self):
+        from .budget_view import BudgetView
+        BudgetView(self.ventana, self.usuario)
+
+    def ir_gastos(self):
+        from .expenses_view import ExpensesView
+        ExpensesView(self.ventana, self.usuario)
+
+    def ir_comparacion(self):
+        from .compare_view import CompareView
+        CompareView(self.ventana, self.usuario)
