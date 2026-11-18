@@ -34,6 +34,18 @@ def crear_base_datos():
         )
     """)
 
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS gastos (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            obra_id INTEGER NOT NULL,
+            partida TEXT NOT NULL,
+            concepto TEXT NOT NULL,
+            monto REAL NOT NULL,
+            fecha TEXT NOT NULL,
+            FOREIGN KEY (obra_id) REFERENCES obras(id)
+        )
+    """)
+
     conexion.commit()
     conexion.close()
 
@@ -120,6 +132,79 @@ def obtener_total_presupuesto_obra(obra_id):
         """
         SELECT COALESCE(SUM(monto), 0)
         FROM presupuestos
+        WHERE obra_id = ?
+        """,
+        (obra_id,)
+    )
+
+    total = cursor.fetchone()[0]
+
+    conexion.close()
+    return total
+
+
+def agregar_gasto(obra_id, partida, concepto, monto, fecha):
+    conexion = obtener_conexion()
+    cursor = conexion.cursor()
+
+    cursor.execute(
+        """
+        INSERT INTO gastos (
+            obra_id,
+            partida,
+            concepto,
+            monto,
+            fecha
+        )
+        VALUES (?, ?, ?, ?, ?)
+        """,
+        (
+            obra_id,
+            partida,
+            concepto,
+            monto,
+            fecha
+        )
+    )
+
+    conexion.commit()
+    conexion.close()
+
+
+def obtener_gastos():
+    conexion = obtener_conexion()
+    cursor = conexion.cursor()
+
+    cursor.execute(
+        """
+        SELECT
+            gastos.id,
+            obras.nombre,
+            gastos.partida,
+            gastos.concepto,
+            gastos.monto,
+            gastos.fecha
+        FROM gastos
+        INNER JOIN obras
+            ON gastos.obra_id = obras.id
+        ORDER BY gastos.id DESC
+        """
+    )
+
+    gastos = cursor.fetchall()
+
+    conexion.close()
+    return gastos
+
+
+def obtener_total_gastos_obra(obra_id):
+    conexion = obtener_conexion()
+    cursor = conexion.cursor()
+
+    cursor.execute(
+        """
+        SELECT COALESCE(SUM(monto), 0)
+        FROM gastos
         WHERE obra_id = ?
         """,
         (obra_id,)
