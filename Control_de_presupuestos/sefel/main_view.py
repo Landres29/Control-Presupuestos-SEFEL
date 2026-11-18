@@ -14,6 +14,10 @@ from .styles import (
     FUENTE_ENTRADA
 )
 
+from .obra_form import ObraForm
+from .database import obtener_obras
+
+
 class MainView:
 
     def __init__(self, ventana, usuario="Administración"):
@@ -24,10 +28,12 @@ class MainView:
         self.crear_interfaz()
 
     def limpiar_ventana(self):
+
         for widget in self.ventana.winfo_children():
             widget.destroy()
 
     def crear_interfaz(self):
+
         self.crear_barra_superior()
         self.crear_cuerpo()
 
@@ -122,7 +128,12 @@ class MainView:
         for texto, comando in opciones:
 
             bg = "#e8f1f5" if texto == "Obras" else COLOR_BLANCO
-            fuente = FUENTE_NORMAL_NEGRITA if texto == "Obras" else FUENTE_NORMAL
+
+            fuente = (
+                FUENTE_NORMAL_NEGRITA
+                if texto == "Obras"
+                else FUENTE_NORMAL
+            )
 
             boton = tk.Button(
                 menu,
@@ -138,7 +149,9 @@ class MainView:
                 pady=8
             )
 
-            boton.pack(fill="x")
+            boton.pack(
+                fill="x"
+            )
 
         espacio = tk.Frame(
             menu,
@@ -213,7 +226,9 @@ class MainView:
             font=FUENTE_TITULO
         )
 
-        titulo.pack(anchor="w")
+        titulo.pack(
+            anchor="w"
+        )
 
         linea = tk.Frame(
             contenido,
@@ -265,7 +280,9 @@ class MainView:
             font=FUENTE_NORMAL_NEGRITA
         )
 
-        label_buscar.pack(anchor="w")
+        label_buscar.pack(
+            anchor="w"
+        )
 
         fila_busqueda = tk.Frame(
             panel,
@@ -292,6 +309,7 @@ class MainView:
         boton_nueva_obra = tk.Button(
             fila_busqueda,
             text="+ Nueva obra",
+            command=self.abrir_nueva_obra,
             bg=COLOR_PRINCIPAL,
             fg=COLOR_BLANCO,
             activebackground=COLOR_PRINCIPAL,
@@ -321,47 +339,47 @@ class MainView:
             height=12
         )
 
-        self.tabla.heading("obra", text="Obra")
-        self.tabla.heading("presupuesto", text="Presupuesto inicial")
-        self.tabla.heading("gastos", text="Gastos registrados")
-        self.tabla.heading("accion", text="Acción")
-
-        self.tabla.column("obra", width=220)
-        self.tabla.column("presupuesto", width=180, anchor="center")
-        self.tabla.column("gastos", width=180, anchor="center")
-        self.tabla.column("accion", width=120, anchor="center")
-
-        self.tabla.insert(
-            "",
-            "end",
-            values=(
-                "Galpón A",
-                "$ 1.300.000",
-                "$ 1.300.000",
-                "Ver costos"
-            )
+        self.tabla.heading(
+            "obra",
+            text="Obra"
         )
 
-        self.tabla.insert(
-            "",
-            "end",
-            values=(
-                "Montaje B",
-                "$ 2.000.000",
-                "$ 1.250.000",
-                "Ver costos"
-            )
+        self.tabla.heading(
+            "presupuesto",
+            text="Presupuesto inicial"
         )
 
-        self.tabla.insert(
-            "",
-            "end",
-            values=(
-                "Obra C",
-                "$ 900.000",
-                "$ 380.000",
-                "Ver costos"
-            )
+        self.tabla.heading(
+            "gastos",
+            text="Gastos registrados"
+        )
+
+        self.tabla.heading(
+            "accion",
+            text="Acción"
+        )
+
+        self.tabla.column(
+            "obra",
+            width=220
+        )
+
+        self.tabla.column(
+            "presupuesto",
+            width=180,
+            anchor="center"
+        )
+
+        self.tabla.column(
+            "gastos",
+            width=180,
+            anchor="center"
+        )
+
+        self.tabla.column(
+            "accion",
+            width=120,
+            anchor="center"
         )
 
         self.tabla.pack(
@@ -382,14 +400,61 @@ class MainView:
             pady=(10, 0)
         )
 
+        self.cargar_obras()
+
+    def abrir_nueva_obra(self):
+
+        ObraForm(
+            self.ventana,
+            self.usuario,
+            self.cargar_obras
+        )
+
+    def cargar_obras(self):
+
+        for registro in self.tabla.get_children():
+            self.tabla.delete(registro)
+
+        obras = obtener_obras()
+
+        for obra in obras:
+
+            nombre = obra[1]
+
+            self.tabla.insert(
+                "",
+                "end",
+                values=(
+                    nombre,
+                    "$ 0",
+                    "$ 0",
+                    "Ver costos"
+                )
+            )
+
     def ir_presupuestos(self):
+
         from .budget_view import BudgetView
-        BudgetView(self.ventana, self.usuario)
+
+        BudgetView(
+            self.ventana,
+            self.usuario
+        )
 
     def ir_gastos(self):
+
         from .expenses_view import ExpensesView
-        ExpensesView(self.ventana, self.usuario)
+
+        ExpensesView(
+            self.ventana,
+            self.usuario
+        )
 
     def ir_comparacion(self):
+
         from .compare_view import CompareView
-        CompareView(self.ventana, self.usuario)
+
+        CompareView(
+            self.ventana,
+            self.usuario
+        )
