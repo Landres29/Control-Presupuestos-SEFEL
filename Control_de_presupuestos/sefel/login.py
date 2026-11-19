@@ -224,23 +224,20 @@ class LoginView:
         boton_ingresar.pack(ipady=6)
 
     def iniciar_sesion(self):
-
-        usuario = self.entrada_usuario.get()
-        contrasena = self.entrada_contrasena.get()
-
-        if usuario == "" or contrasena == "":
+        usuario = self.entrada_usuario.get().strip()
+        contrasena = self.entrada_contrasena.get().strip()
+        if not usuario or not contrasena:
             messagebox.showerror(
                 "Error",
                 "Debe ingresar usuario y contraseña."
             )
             return
-
-        messagebox.showinfo(
-            "Acceso",
-            "Credenciales ingresadas."
-        )
-
-        MainView(
-            self.ventana,
-            usuario=usuario
+        
+        if usuario == "admin" and contrasena == "123":
+            MainView(self.ventana, usuario=usuario)
+            return
+        
+        messagebox.showerror(
+            "Error",
+            "Usuario o contraseña incorrectos."
         )
