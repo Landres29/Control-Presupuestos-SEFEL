@@ -75,16 +75,6 @@ Se utilizarán principalmente para revisar:
 
 Estas pruebas serán realizadas por los desarrolladores.
 
-## 3.3 Caja gris
-
-Las pruebas de caja gris se utilizarán cuando sea necesario verificar la relación entre la interfaz y la base de datos.
-
-Ejemplos:
-
-- Registrar una obra desde la interfaz y verificar su almacenamiento en SQLite.
-- Registrar un gasto y comprobar que quede asociado a la obra correcta.
-- Verificar que la comparación utilice los datos almacenados en la base de datos.
-
 ---
 
 # 4. Niveles de prueba
