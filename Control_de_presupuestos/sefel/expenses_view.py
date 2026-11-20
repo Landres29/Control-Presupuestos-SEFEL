@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import ttk, messagebox
+from datetime import datetime
 
 from .styles import (
     COLOR_PRINCIPAL,
@@ -443,6 +444,27 @@ class ExpensesView:
             )
             return
 
+        try:
+            fecha_convertida = datetime.strptime(
+                fecha,
+                "%d-%m-%Y"
+            )
+
+        except ValueError:
+            messagebox.showerror(
+                "Fecha inválida",
+                "La fecha debe tener el formato DD-MM-AAAA y corresponder a una fecha válida."
+            )
+            return
+
+        # Evitar años fuera del rango esperado
+        if fecha_convertida.year < 2000:
+            messagebox.showerror(
+                "Fecha inválida",
+                "El año de la fecha debe ser igual o posterior al año 2000."
+            )
+            return
+
         obra_id = self.obras[indice][0]
 
         agregar_gasto(
@@ -493,7 +515,7 @@ class ExpensesView:
         from .main_view import MainView
 
         MainView(
-            self.ventana,   
+            self.ventana,
             self.usuario
         )
 

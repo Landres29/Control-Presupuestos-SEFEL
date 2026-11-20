@@ -24,7 +24,7 @@ Usabilidad.
 Baja.
 
 **Estado:**  
-Pendiente de corrección.
+Corregido
 
 **Corrección propuesta:**  
 Eliminar el mensaje de confirmación posterior al inicio de sesión y abrir directamente la pantalla principal cuando las credenciales sean correctas.
@@ -60,7 +60,7 @@ Seguridad / Funcionalidad.
 Crítica.
 
 **Estado:**  
-Pendiente de corrección.
+Corregido.
 
 **Corrección propuesta:**  
 Implementar una validación real de las credenciales antes de permitir el acceso al sistema. El usuario ingresado debe existir y la contraseña debe coincidir con la registrada.
@@ -96,7 +96,7 @@ Seguridad / Funcionalidad.
 Crítica.
 
 **Estado:**  
-Pendiente de corrección.
+Corregido.
 
 **Corrección propuesta:**  
 Implementar una validación real de la contraseña asociada al usuario antes de permitir el acceso al sistema. El acceso solo debe concederse cuando el usuario exista y la contraseña ingresada coincida con la registrada.
@@ -218,7 +218,7 @@ Funcionalidad / Validación.
 Media.
 
 **Estado:**  
-Pendiente de corrección.
+Corregido.
 
 **Corrección propuesta:**  
 Implementar una validación del campo fecha antes de guardar el gasto.
