@@ -28,17 +28,14 @@ class MainView:
         self.crear_interfaz()
 
     def limpiar_ventana(self):
-
         for widget in self.ventana.winfo_children():
             widget.destroy()
 
     def crear_interfaz(self):
-
         self.crear_barra_superior()
         self.crear_cuerpo()
 
     def crear_barra_superior(self):
-
         barra_superior = tk.Frame(
             self.ventana,
             bg=COLOR_PRINCIPAL,
@@ -75,7 +72,6 @@ class MainView:
         )
 
     def crear_cuerpo(self):
-
         cuerpo = tk.Frame(
             self.ventana,
             bg=COLOR_FONDO
@@ -90,7 +86,6 @@ class MainView:
         self.crear_contenido_principal(cuerpo)
 
     def crear_menu_lateral(self, cuerpo):
-
         menu = tk.Frame(
             cuerpo,
             bg=COLOR_BLANCO,
@@ -203,8 +198,12 @@ class MainView:
             pady=(0, 20)
         )
 
-    def crear_contenido_principal(self, cuerpo):
+        cerrar.bind(
+            "<Button-1>",
+            self.cerrar_sesion
+        )
 
+    def crear_contenido_principal(self, cuerpo):
         contenido = tk.Frame(
             cuerpo,
             bg=COLOR_FONDO
@@ -257,7 +256,6 @@ class MainView:
         self.crear_panel_obras(contenido)
 
     def crear_panel_obras(self, contenido):
-
         panel = tk.Frame(
             contenido,
             bg=COLOR_BLANCO,
@@ -304,6 +302,11 @@ class MainView:
             fill="x",
             expand=True,
             ipady=5
+        )
+
+        self.entrada_busqueda.bind(
+            "<KeyRelease>",
+            self.filtrar_obras
         )
 
         boton_nueva_obra = tk.Button(
@@ -403,37 +406,45 @@ class MainView:
         self.cargar_obras()
 
     def abrir_nueva_obra(self):
-
         ObraForm(
             self.ventana,
             self.usuario,
             self.cargar_obras
         )
 
-    def cargar_obras(self):
+    def cargar_obras(self, filtro=""):
 
         for registro in self.tabla.get_children():
             self.tabla.delete(registro)
 
         obras = obtener_obras()
 
+        filtro = filtro.lower().strip()
+
         for obra in obras:
 
             nombre = obra[1]
 
-            self.tabla.insert(
-                "",
-                "end",
-                values=(
-                    nombre,
-                    "$ 0",
-                    "$ 0",
-                    "Ver costos"
+            if filtro == "" or filtro in nombre.lower():
+
+                self.tabla.insert(
+                    "",
+                    "end",
+                    values=(
+                        nombre,
+                        "$ 0",
+                        "$ 0",
+                        "Ver costos"
+                    )
                 )
-            )
+
+    def filtrar_obras(self, event=None):
+
+        texto_busqueda = self.entrada_busqueda.get()
+
+        self.cargar_obras(texto_busqueda)
 
     def ir_presupuestos(self):
-
         from .budget_view import BudgetView
 
         BudgetView(
@@ -442,7 +453,6 @@ class MainView:
         )
 
     def ir_gastos(self):
-
         from .expenses_view import ExpensesView
 
         ExpensesView(
@@ -451,10 +461,18 @@ class MainView:
         )
 
     def ir_comparacion(self):
-
         from .compare_view import CompareView
 
         CompareView(
             self.ventana,
             self.usuario
+        )
+
+    def cerrar_sesion(self, event=None):
+        from .login import LoginView
+
+        self.limpiar_ventana()
+
+        LoginView(
+            self.ventana
         )

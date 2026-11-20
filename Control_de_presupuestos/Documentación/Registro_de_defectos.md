@@ -306,7 +306,7 @@ Funcionalidad / Seguridad.
 Media.
 
 **Estado:**  
-Pendiente de corrección.
+Corregido.
 
 **Corrección propuesta:**  
 Implementar la funcionalidad del botón `Cerrar sesión` para que cierre la sesión actual y redirija al usuario a la pantalla de inicio de sesión.
