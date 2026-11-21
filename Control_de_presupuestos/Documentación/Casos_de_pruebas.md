@@ -375,7 +375,7 @@ Los cálculos fueron correctos para los tres escenarios.
 Posteriormente se mejoró la usabilidad del módulo incorporando un buscador por obra.
 
 **Estado:**  
-Aprobado.
+Aprobado después de corrección.
 
 **Defecto de usabilidad relacionado:**  
 DEF-007.

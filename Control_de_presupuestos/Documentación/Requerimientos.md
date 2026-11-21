@@ -30,7 +30,7 @@ El sistema debe permitir que un usuario ingrese mediante un nombre de usuario y 
 
 ### Estado
 
-En desarrollo.
+Implementado.
 
 El inicio de sesión ya cuenta con una interfaz inicial, pero todavía se deben mejorar las validaciones y controles de seguridad.
 
@@ -106,7 +106,7 @@ El sistema debe permitir registrar montos presupuestados asociados a una obra.
 
 ### Estado
 
-Implementado parcialmente.
+Implementado.
 
 Las funciones principales se encuentran implementadas, pero las validaciones serán revisadas durante las pruebas.
 
@@ -167,7 +167,7 @@ El sistema debe permitir registrar gastos reales asociados a una obra.
 
 ### Estado
 
-Implementado parcialmente.
+Implementado.
 
 Las validaciones específicas de fecha y caracteres serán comprobadas durante las pruebas.
 
@@ -205,7 +205,7 @@ La diferencia se obtiene mediante:
 
 ### Estado
 
-Implementado.
+Implementado y verificado.
 
 Será revisado mediante casos de prueba para comprobar que los cálculos sean correctos.
 
@@ -246,7 +246,7 @@ El sistema debe informar al usuario cuando una operación no pueda realizarse co
 
 ### Estado
 
-En desarrollo.
+Implementado.
 
 Se mejorará de acuerdo con los errores identificados durante las pruebas.
 
@@ -262,17 +262,24 @@ El sistema debe controlar qué usuarios pueden ingresar a la aplicación.
 - Validar usuario y contraseña.
 - Rechazar usuarios inexistentes.
 - Rechazar contraseñas incorrectas.
-- Registrar o controlar intentos incorrectos de acceso.
+- Cerrar la sesión actual.
+- Solicitar nuevamente credenciales después de cerrar sesión.
 
-### Requisito de seguridad propuesto
+### No debe permitir
 
-Después de varios intentos incorrectos consecutivos, el sistema deberá aplicar una medida de control para evitar intentos ilimitados.
+- Acceder con un usuario inexistente.
+- Acceder utilizando una contraseña incorrecta.
+- Continuar utilizando la sesión después de cerrarla.
 
-La implementación exacta será definida durante el desarrollo del Sprint 4.
+### Mejora futura
+
+Como mejora de seguridad para una versión posterior, se podrá implementar un bloqueo temporal después de varios intentos fallidos consecutivos.
+
+Esta funcionalidad no forma parte del alcance de la versión actual.
 
 ### Estado
 
-Pendiente de completar.
+Implementado dentro del alcance actual.
 
 ---
 
@@ -388,8 +395,12 @@ Los requerimientos se distribuyen de la siguiente forma:
 
 # 7. Estado general
 
-Los requerimientos principales del prototipo se encuentran implementados de forma inicial.
+Los requerimientos principales definidos para el prototipo se encuentran implementados dentro del alcance establecido.
 
-Durante el Sprint 4 se revisarán las validaciones, seguridad, manejo de errores y comportamiento del sistema mediante casos de prueba.
+Durante el Sprint 4 se realizaron pruebas funcionales, de seguridad, usabilidad, persistencia y manejo de fallos.
 
-Los defectos encontrados serán registrados y corregidos antes de finalizar el prototipo.
+Los defectos identificados durante las pruebas fueron registrados, corregidos y posteriormente verificados.
+
+El prototipo se encuentra finalizado dentro del alcance definido para la versión actual.
+
+Las funcionalidades de seguridad avanzada y otras mejoras adicionales quedan consideradas para versiones futuras.
