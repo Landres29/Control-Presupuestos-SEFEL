@@ -18,9 +18,10 @@ from .database import obtener_resumen_costos
 
 class CompareView:
 
-    def __init__(self, ventana, usuario):
+    def __init__(self, ventana, usuario, obra_seleccionada=None):
         self.ventana = ventana
         self.usuario = usuario
+        self.obra_seleccionada = obra_seleccionada
 
         self.limpiar()
         self.crear_interfaz()
@@ -277,6 +278,8 @@ class CompareView:
 
         datos = obtener_resumen_costos()
 
+        fila_seleccionada = None
+
         for dato in datos:
             nombre = dato[1]
             presupuesto = dato[2]
@@ -291,7 +294,7 @@ class CompareView:
             else:
                 estado = "Equilibrado"
 
-            self.tabla.insert(
+            fila = self.tabla.insert(
                 "",
                 "end",
                 values=(
@@ -302,6 +305,17 @@ class CompareView:
                     estado
                 )
             )
+
+            if (
+                self.obra_seleccionada is not None
+                and nombre == self.obra_seleccionada
+            ):
+                fila_seleccionada = fila
+
+        if fila_seleccionada is not None:
+            self.tabla.selection_set(fila_seleccionada)
+            self.tabla.focus(fila_seleccionada)
+            self.tabla.see(fila_seleccionada)
 
     def ir_obras(self):
         from .main_view import MainView

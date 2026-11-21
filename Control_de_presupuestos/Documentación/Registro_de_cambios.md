@@ -60,4 +60,44 @@ Aprobado.
 - DEF-006 - El sistema acepta fechas con formato inválido en gastos.
 
 **Estado:**  
+Finalizado.
+
+## Versión 1.3 - Correcciones funcionales
+
+**Versión anterior:** v1.2
+
+**Nueva versión:** v1.3
+
+**Tipo de cambio:**  
+Corrección de defectos funcionales detectados durante las pruebas del sistema.
+
+**Cambios realizados:**
+
+-Se corrigió DEF-009, implementando correctamente la opción Cerrar sesión.
+-Al cerrar sesión, la pantalla actual se limpia y el sistema vuelve al inicio de sesión.
+-Se corrigió DEF-010, implementando el filtrado de obras mediante el campo Buscar obra.
+-El buscador permite encontrar obras utilizando nombres completos o parciales.
+-Al dejar vacío el campo de búsqueda, se vuelven a mostrar todas las obras.
+-Se corrigió DEF-011, permitiendo acceder a la comparación de costos desde una obra seleccionada.
+-Al hacer doble clic sobre una obra, el sistema abre el módulo de comparación de costos y selecciona automáticamente la obra consultada.
+
+**Casos de prueba relacionados:**
+
+-CP-018 - Cerrar sesión correctamente.
+-CP-019 - Buscar una obra registrada.
+-CP-020 - Acceder a los costos desde una obra.
+
+**Verificación de la corrección:**
+
+-La opción Cerrar sesión devuelve correctamente al usuario a la pantalla de inicio de sesión.
+-El buscador filtra correctamente las obras mientras se escribe.
+-La opción de consulta de costos permite abrir el módulo de comparación desde una obra seleccionada.
+
+**Defectos corregidos hasta el momento:**
+
+-DEF-009 - La opción Cerrar sesión no funciona.
+-DEF-010 - El buscador de obras no filtra los resultados.
+-DEF-011 - La opción Ver costos no funciona.
+
+**Estado:**  
 En desarrollo.

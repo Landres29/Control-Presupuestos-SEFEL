@@ -387,17 +387,10 @@ Funcionalidad / Usabilidad.
 Media.
 
 **Estado:**  
-Pendiente de corrección.
+Corregido.
 
 **Corrección propuesta:**  
-Implementar la funcionalidad asociada a la opción `Ver costos`.
-
-Al utilizarla, el sistema debería:
-
-- Identificar la obra seleccionada.
-- Abrir el módulo de comparación de costos.
-- Mostrar o destacar la información correspondiente a la obra seleccionada.
-- Evitar mostrar acciones en la interfaz que no tengan funcionalidad implementada.
+Se implementó la apertura del módulo de comparación de costos mediante doble clic sobre una obra seleccionada en la pantalla principal. La obra seleccionada se envía al módulo de comparación y queda resaltada automáticamente.
 
 **Evidencia:**  
 Captura correspondiente al caso de prueba CP-020.

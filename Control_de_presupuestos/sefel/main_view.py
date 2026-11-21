@@ -390,9 +390,15 @@ class MainView:
             expand=True
         )
 
+        # Doble clic sobre una obra para ver sus costos
+        self.tabla.bind(
+            "<Double-1>",
+            self.ver_costos
+        )
+
         mensaje = tk.Label(
             panel,
-            text="Seleccione una obra para consultar su presupuesto y sus gastos.",
+            text="Seleccione una obra y haga doble clic para consultar sus costos.",
             bg=COLOR_BLANCO,
             fg=COLOR_TEXTO_SECUNDARIO,
             font=("Arial", 9)
@@ -443,6 +449,29 @@ class MainView:
         texto_busqueda = self.entrada_busqueda.get()
 
         self.cargar_obras(texto_busqueda)
+
+    def ver_costos(self, event=None):
+
+        seleccion = self.tabla.selection()
+
+        if not seleccion:
+            return
+
+        item = self.tabla.item(seleccion[0])
+        valores = item["values"]
+
+        if not valores:
+            return
+
+        nombre_obra = valores[0]
+
+        from .compare_view import CompareView
+
+        CompareView(
+            self.ventana,
+            self.usuario,
+            nombre_obra
+        )
 
     def ir_presupuestos(self):
         from .budget_view import BudgetView
