@@ -376,23 +376,54 @@ class BudgetView:
         partida = self.entrada_partida.get().strip()
         monto_texto = self.entrada_monto.get().strip()
 
-        if indice == -1 or partida == "" or monto_texto == "":
+        # Validar obra seleccionada
+        if indice == -1:
             messagebox.showerror(
                 "Datos incompletos",
-                "Debe completar todos los campos."
+                "Debe seleccionar una obra."
             )
             return
 
+        # Validar partida
+        if partida == "":
+            messagebox.showerror(
+                "Datos incompletos",
+                "Debe ingresar una partida."
+            )
+            return
+
+        # Validar monto vacío
+        if monto_texto == "":
+            messagebox.showerror(
+                "Monto requerido",
+                "Debe ingresar un monto."
+            )
+            return
+
+        # Validar que el monto sea numérico
         try:
             monto = float(monto_texto)
-
-            if monto <= 0:
-                raise ValueError
 
         except ValueError:
             messagebox.showerror(
                 "Monto inválido",
-                "El monto debe ser un número mayor que cero."
+                "El monto debe ser un valor numérico."
+            )
+            return
+
+        # Validar monto negativo
+        if monto < 0:
+            messagebox.showerror(
+                "Monto inválido",
+                "El monto no puede ser negativo."
+            )
+            return
+
+        # Validar monto igual a cero
+        if monto == 0:
+            messagebox.showerror(
+                "Monto inválido",
+                "El monto debe ser mayor que cero."
             )
             return
 
