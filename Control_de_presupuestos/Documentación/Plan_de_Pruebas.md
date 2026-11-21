@@ -2,179 +2,210 @@
 
 ## 1. Objetivo
 
-El objetivo de este plan de pruebas es verificar que el prototipo de Control de Presupuestos SEFEL funcione correctamente de acuerdo con los requerimientos definidos.
+El objetivo de este plan de pruebas es verificar que el prototipo de **Control de Presupuestos SEFEL** funcione correctamente de acuerdo con los requerimientos definidos.
 
-Las pruebas permitirán identificar errores o defectos antes de finalizar el desarrollo, comprobar las funciones principales del sistema y registrar las correcciones realizadas.
+Las pruebas permiten identificar errores o defectos, comprobar las funciones principales del sistema, registrar los resultados obtenidos y verificar las correcciones realizadas.
 
----
+## 2. Alcance
 
-# 2. Alcance
+Las pruebas se realizan sobre las principales funcionalidades del prototipo.
 
-Las pruebas se realizarán sobre las principales funcionalidades del prototipo.
-
-Se incluirán:
+### Funcionalidades incluidas
 
 - Inicio de sesión.
 - Registro de obras.
 - Consulta de obras.
+- Búsqueda de obras.
 - Registro de presupuestos.
 - Registro de partidas.
 - Registro de gastos.
 - Consulta de gastos.
 - Comparación de costos.
+- Consulta de costos desde una obra.
 - Persistencia de datos.
 - Validación de datos ingresados.
 - Manejo de errores.
+- Manejo de ausencia de la base de datos.
+- Cierre de sesión.
 - Control de acceso.
 - Seguridad básica.
 - Usabilidad.
 
-Quedan fuera del alcance:
+### Funcionalidades fuera del alcance
 
 - Pruebas de carga.
 - Pruebas de estrés.
-- Pruebas de rendimiento avanzadas.
+- Pruebas avanzadas de rendimiento.
 - Pruebas de compatibilidad con múltiples sistemas operativos.
-- Pruebas de funciones que no forman parte del prototipo actual.
+- Funciones que no forman parte del prototipo actual.
+- Bloqueo temporal automático después de varios intentos fallidos de inicio de sesión.
+- Gestión avanzada de usuarios y permisos.
 
----
+## 3. Estrategia de pruebas
 
-# 3. Estrategia de pruebas
+La estrategia principal utilizada es la **prueba de caja negra**.
 
-La estrategia principal será la prueba de caja negra.
+### 3.1 Caja negra
 
-## 3.1 Caja negra
+Las pruebas de caja negra comprueban el comportamiento del sistema desde el punto de vista del usuario.
 
-Las pruebas de caja negra verificarán el comportamiento del sistema desde el punto de vista del usuario.
+Se utilizan datos válidos e inválidos para verificar la respuesta de la aplicación.
 
-Se ingresarán datos válidos e inválidos para comprobar si el sistema responde correctamente.
-
-Ejemplos:
+**Ejemplos:**
 
 - Usuario y contraseña correctos.
 - Usuario inexistente.
 - Contraseña incorrecta.
 - Campos vacíos.
-- Montos válidos e inválidos.
-- Fechas válidas e inválidas.
+- Montos válidos.
+- Montos iguales a cero.
+- Montos negativos.
+- Valores no numéricos.
+- Fechas válidas.
+- Fechas con formato incorrecto.
+- Fechas inexistentes.
 - Datos que no deberían ser aceptados.
 
-No será necesario conocer el funcionamiento interno del código para ejecutar estas pruebas.
+No es necesario conocer el funcionamiento interno del código para ejecutar estas pruebas.
 
-## 3.2 Caja blanca
+### 3.2 Caja blanca
 
-Se podrán realizar pruebas de caja blanca en algunas funciones internas del sistema.
+Se consideran revisiones de caja blanca en algunas funciones internas del sistema.
 
-Se utilizarán principalmente para revisar:
+Se utilizan principalmente para revisar:
 
+- Registro de información.
 - Cálculos de presupuesto.
 - Cálculos de gastos.
 - Cálculo de diferencias.
-- Funciones de acceso a la base de datos.
+- Funciones de acceso a SQLite.
 - Validaciones internas.
+- Comprobación de existencia de la base de datos.
 
-Estas pruebas serán realizadas por los desarrolladores.
+Estas revisiones son realizadas por los desarrolladores.
 
----
+## 4. Niveles de prueba
 
-# 4. Niveles de prueba
+### 4.1 Pruebas unitarias
 
-## 4.1 Pruebas unitarias
+Se utilizan para revisar funciones o validaciones específicas del sistema.
 
-Se utilizarán para revisar funciones específicas del sistema.
+**Ejemplos:**
 
-Ejemplos:
+- Registro de obra.
+- Registro de presupuesto.
+- Registro de gasto.
+- Obtención de totales.
+- Cálculo de diferencias.
+- Validación de montos.
+- Validación de fechas.
 
-- Función de registro de obra.
-- Función de registro de presupuesto.
-- Función de registro de gasto.
-- Función que obtiene los totales.
-- Función que calcula la diferencia de costos.
+### 4.2 Pruebas de integración
 
-## 4.2 Pruebas de integración
+Comprueban que los diferentes componentes funcionen correctamente en conjunto.
 
-Se utilizarán para comprobar que los diferentes componentes funcionen correctamente en conjunto.
-
-Ejemplos:
+**Ejemplos:**
 
 - Interfaz de obras con SQLite.
 - Presupuestos asociados a una obra.
 - Gastos asociados a una obra.
-- Comparación utilizando presupuestos y gastos registrados.
+- Comparación utilizando presupuestos y gastos almacenados.
+- Navegación entre las diferentes pantallas.
+- Consulta de costos desde una obra.
+- Inicio y cierre de sesión.
 
-## 4.3 Pruebas de sistema
+### 4.3 Pruebas de sistema
 
-Se probará el prototipo completo desde la perspectiva del usuario.
+Se prueba el prototipo completo desde la perspectiva del usuario.
 
-Se verificará que sea posible realizar el flujo principal:
+**Flujo principal considerado:**
 
 1. Iniciar sesión.
-2. Registrar una obra.
+2. Registrar o consultar una obra.
 3. Registrar un presupuesto.
 4. Registrar un gasto.
-5. Consultar los datos.
+5. Consultar la información.
 6. Comparar los costos.
+7. Buscar una obra.
+8. Acceder a los costos desde una obra.
+9. Cerrar sesión.
 
-## 4.4 Prueba de aceptación
+### 4.4 Prueba de aceptación
 
 La prueba de aceptación deberá ser realizada por un usuario o representante correspondiente.
 
-Su objetivo será comprobar si el prototipo cumple con las funciones principales esperadas.
+Su objetivo es comprobar si el prototipo cumple con las funciones principales esperadas desde el punto de vista del usuario final.
 
----
+Esta prueba es independiente de las pruebas realizadas por el equipo de desarrollo.
 
-# 5. Tipos de pruebas
+## 5. Tipos de pruebas
 
-## 5.1 Pruebas funcionales
+### 5.1 Pruebas funcionales
 
-Se comprobará que cada funcionalidad cumpla con el comportamiento definido en los requerimientos.
+Se comprueba que cada funcionalidad cumpla con el comportamiento definido en los requerimientos.
 
-## 5.2 Pruebas de seguridad
+### 5.2 Pruebas de seguridad
 
-Se revisarán principalmente:
+Se revisan principalmente:
 
 - Validación de usuario y contraseña.
 - Rechazo de usuarios inexistentes.
 - Rechazo de contraseñas incorrectas.
-- Control de intentos incorrectos de acceso.
+- Campos obligatorios del inicio de sesión.
+- Control de acceso.
+- Cierre de sesión.
 - Protección básica de la información.
 - Confidencialidad.
 - Integridad.
 - Disponibilidad.
 
-## 5.3 Pruebas de usabilidad
+**Mejora futura:**  
+El bloqueo temporal después de varios intentos fallidos se considera una mejora futura y no forma parte del alcance de la versión actual.
 
-Se comprobará que:
+### 5.3 Pruebas de usabilidad
 
-- Los botones sean comprensibles.
+Se comprueba que:
+
+- Los botones y opciones sean comprensibles.
 - Los mensajes sean claros.
 - Las pantallas sean fáciles de utilizar.
 - La navegación sea simple.
 - Los campos sean fáciles de identificar.
+- Las opciones visibles tengan una funcionalidad asociada.
+- La búsqueda facilite la consulta de información.
 
-## 5.4 Pruebas de recuperación
+### 5.4 Pruebas de recuperación
 
-Cuando corresponda, se verificará que el sistema pueda manejar fallos sin perder innecesariamente la información.
+Se comprueba que el sistema pueda manejar determinados fallos sin generar pérdida innecesaria de información.
 
-Ejemplos:
+Se consideran:
 
 - Cerrar y volver a abrir la aplicación.
 - Comprobar que los registros continúen disponibles.
-- Manejar un problema de acceso a la base de datos mostrando un mensaje al usuario.
+- Comprobar la persistencia en SQLite.
+- Comprobar el comportamiento cuando la base de datos original no se encuentra disponible.
+- Mostrar un mensaje al usuario cuando la aplicación no pueda acceder a la base de datos necesaria.
 
-## 5.5 Pruebas de regresión
+### 5.5 Pruebas de regresión
 
-Después de corregir un defecto, se volverá a probar la funcionalidad afectada.
+Después de corregir un defecto se vuelve a ejecutar la funcionalidad afectada.
 
-También se comprobará que la corrección no haya provocado problemas en otras funciones del sistema.
+También se comprueba que la modificación no haya afectado otras funciones relacionadas.
 
----
+**Ejemplos realizados:**
 
-# 6. Ambiente de pruebas
+- Repetición de pruebas del inicio de sesión después de corregir la validación de credenciales.
+- Repetición de pruebas de fechas después de incorporar su validación.
+- Repetición de pruebas de montos después de mejorar sus mensajes.
+- Comprobación del cierre de sesión después de implementarlo.
+- Comprobación del buscador después de incorporar el filtrado.
+- Comprobación de la comparación de costos después de implementar el acceso desde Obras.
 
-Las pruebas se realizarán en el mismo ambiente utilizado para desarrollar el prototipo.
+## 6. Ambiente de pruebas
 
-## Software
+Las pruebas se realizan en el mismo ambiente utilizado para desarrollar el prototipo.
+
+### Software
 
 - Windows 10 o Windows 11.
 - Python.
@@ -184,27 +215,25 @@ Las pruebas se realizarán en el mismo ambiente utilizado para desarrollar el pr
 - Git.
 - GitHub.
 
-## Hardware
+### Hardware
 
-Se utilizarán los computadores disponibles para el desarrollo y las pruebas del proyecto.
+Se utilizan los computadores disponibles para el desarrollo y las pruebas del proyecto.
 
 No se requiere hardware especializado.
 
----
+## 7. Datos de prueba
 
-# 7. Datos de prueba
+Se utilizan datos válidos e inválidos para comprobar el comportamiento del sistema.
 
-Se utilizarán datos válidos e inválidos para comprobar el comportamiento del sistema.
-
-## Ejemplos de datos válidos
+### Ejemplos de datos válidos
 
 - Nombre de obra correctamente ingresado.
 - Montos numéricos mayores que cero.
-- Fechas válidas.
-- Usuarios registrados.
-- Contraseñas correctas.
+- Fechas válidas con formato `DD-MM-AAAA`.
+- Usuario válido.
+- Contraseña correcta.
 
-## Ejemplos de datos inválidos
+### Ejemplos de datos inválidos
 
 - Campos vacíos.
 - Montos negativos.
@@ -213,72 +242,97 @@ Se utilizarán datos válidos e inválidos para comprobar el comportamiento del 
 - Usuario inexistente.
 - Contraseña incorrecta.
 - Fechas con formato incorrecto.
-- Fechas con formato válido pero valor no aceptable.
+- Fechas inexistentes.
+- Fechas fuera del rango establecido.
 
-Ejemplo:
+**Ejemplos:**
 
-`01-01-0001`
+- `01012006`
+- `31-02-2026`
+- `01-01-0001`
 
-Este dato puede tener una estructura similar a una fecha correcta, pero deberá comprobarse si cumple con las reglas definidas por el sistema.
+Estos valores permiten comprobar tanto el formato como la validez del dato ingresado.
 
----
+## 8. Caracteres y valores permitidos
 
-# 8. Caracteres permitidos
+Los datos permitidos dependen del tipo de campo.
 
-Los caracteres permitidos se definirán según el tipo de campo.
+No se utiliza una única regla para todos los campos.
 
-No se aplicará una única regla para todos los campos.
+### Nombre de obra
 
-Por ejemplo:
-
-## Nombre de obra
-
-Podrá aceptar:
-
-- Letras.
-- Números.
-- Espacios.
-- Algunos caracteres utilizados habitualmente en nombres.
-
-## Concepto o descripción
-
-Podrá aceptar:
+Puede aceptar:
 
 - Letras.
 - Números.
 - Espacios.
-- Caracteres especiales necesarios para escribir descripciones.
+- Caracteres utilizados habitualmente en nombres.
 
-## Monto
+El nombre no puede quedar vacío.
 
-Deberá aceptar únicamente valores numéricos válidos.
+### Partida
 
-## Usuario
+Debe contener información que permita identificar la partida correspondiente.
 
-Los caracteres permitidos serán definidos al implementar completamente el control de acceso.
+No puede quedar vacía al realizar un registro.
 
-Las reglas definitivas deberán quedar registradas en los casos de prueba.
+### Concepto o descripción
 
----
+Puede aceptar:
 
-# 9. Responsables
+- Letras.
+- Números.
+- Espacios.
+- Caracteres especiales necesarios para escribir una descripción.
 
-El equipo de desarrollo será responsable de:
+### Monto
+
+Debe aceptar únicamente valores numéricos mayores que cero.
+
+Se consideran inválidos:
+
+- Campo vacío.
+- Cero.
+- Valores negativos.
+- Valores no numéricos.
+
+### Fecha
+
+Para el registro de gastos se utiliza el formato:
+
+`DD-MM-AAAA`
+
+La fecha debe:
+
+- Cumplir con el formato definido.
+- Corresponder a una fecha real.
+- Utilizar un año dentro del rango permitido por el sistema.
+
+### Usuario y contraseña
+
+El prototipo valida las credenciales utilizadas para el acceso.
+
+Las credenciales incorrectas deben ser rechazadas.
+
+## 9. Responsables
+
+El equipo de desarrollo es responsable de:
 
 - Preparar los casos de prueba.
 - Ejecutar las pruebas.
 - Registrar los resultados.
 - Identificar defectos.
+- Clasificar los defectos.
 - Corregir errores.
 - Repetir las pruebas después de las correcciones.
+- Mantener las evidencias.
+- Registrar los cambios mediante Git y GitHub.
 
-La prueba de aceptación deberá ser realizada por un usuario o representante correspondiente.
+La prueba de aceptación corresponde a un usuario o representante.
 
----
+## 10. Registro de resultados
 
-# 10. Registro de resultados
-
-Cada caso de prueba deberá registrar como mínimo:
+Cada caso de prueba registra, según corresponda:
 
 - Identificador.
 - Funcionalidad.
@@ -287,135 +341,168 @@ Cada caso de prueba deberá registrar como mínimo:
 - Pasos realizados.
 - Resultado esperado.
 - Resultado obtenido.
-- Estado de la prueba.
+- Estado.
+- Defecto relacionado.
 
-Los posibles estados serán:
+### Estados utilizados
 
-- Aprobado.
-- Fallido.
-- Pendiente.
+- **Aprobado.**
+- **Fallido.**
+- **Pendiente.**
+- **Aprobado después de corrección.**
 
-Si una prueba falla, se deberá registrar el defecto correspondiente en `Registro_de_defectos.md`.
+Si una prueba falla, se registra el defecto correspondiente en `Registro_de_defectos.md`.
 
----
+Las evidencias detalladas de ejecución se mantienen en un documento Word con sus respectivas capturas.
 
-# 11. Clasificación de severidad
+## 11. Clasificación de severidad
 
-Los defectos encontrados serán clasificados según su impacto.
+Los defectos encontrados se clasifican según su impacto.
 
-## Crítico
+### Crítico
 
 Defecto que impide utilizar una función principal o compromete seriamente la seguridad o integridad de los datos.
 
-Ejemplos:
+**Ejemplos:**
 
 - El sistema no inicia.
-- Se pierden los registros almacenados.
+- Se pierden registros almacenados.
 - Se puede ingresar sin credenciales válidas.
 - Un cálculo principal entrega resultados incorrectos.
 
-## Alto
+### Alto
 
 Defecto importante que afecta una funcionalidad principal, pero permite continuar utilizando otras partes del sistema.
 
-Ejemplos:
+**Ejemplos:**
 
 - No se puede registrar un gasto.
-- Un presupuesto no queda asociado a la obra correcta.
+- Un presupuesto no queda asociado a la obra correspondiente.
 - Una validación importante no funciona.
 
-## Medio
+### Medio
 
-Defecto que afecta parcialmente una función, pero existe una forma de continuar trabajando.
+Defecto que afecta parcialmente una función o el manejo de una situación, pero permite continuar trabajando en otras partes del sistema.
 
-Ejemplos:
+**Ejemplos:**
 
-- Mensaje poco claro.
-- Validación secundaria incorrecta.
-- Un dato se muestra de forma incorrecta sin afectar el almacenamiento.
+- Una fecha inválida es aceptada.
+- Una función visible no realiza la acción esperada.
+- El sistema no maneja correctamente la ausencia de la base de datos.
+- Una búsqueda no funciona.
 
-## Bajo
+### Bajo
 
-Defecto que no afecta el funcionamiento principal.
+Defecto que no impide el funcionamiento principal y se relaciona principalmente con usabilidad o presentación.
 
-Ejemplos:
+**Ejemplos:**
 
-- Error de texto.
-- Elemento visual mal alineado.
-- Color o tamaño poco adecuado.
+- Mensaje poco específico.
+- Elemento visual poco intuitivo.
 - Problema menor de presentación.
+- Falta de una ayuda de consulta secundaria.
 
----
+## 12. Criterios de entrada
 
-# 12. Criterios de entrada
-
-Una funcionalidad podrá comenzar a probarse cuando:
+Una funcionalidad puede comenzar a probarse cuando:
 
 - Se encuentre implementada.
 - La aplicación pueda ejecutarse.
-- La base de datos se encuentre disponible.
+- La base de datos se encuentre disponible para las pruebas normales.
 - Existan datos de prueba preparados.
 - El requerimiento correspondiente se encuentre definido.
 
----
+## 13. Criterios de salida
 
-# 13. Criterios de salida
-
-La etapa de pruebas podrá considerarse finalizada cuando:
+La etapa principal de pruebas puede considerarse finalizada cuando:
 
 - Los casos de prueba principales hayan sido ejecutados.
 - Las funcionalidades principales se encuentren operativas.
 - No existan defectos críticos pendientes.
-- Los defectos altos importantes hayan sido corregidos o justificados.
-- Las correcciones hayan sido sometidas a pruebas de regresión.
+- Los defectos incluidos en el alcance hayan sido corregidos o justificados.
+- Las correcciones hayan sido verificadas.
 - Los resultados se encuentren documentados.
 - Las evidencias necesarias se encuentren disponibles.
+- Los cambios se encuentren registrados mediante control de versiones.
 
----
+**Resultado actual:**  
+Estos criterios se cumplen para la etapa de pruebas realizada por el equipo de desarrollo.
 
-# 14. Gestión de defectos
+La prueba de aceptación puede realizarse posteriormente por el usuario o representante correspondiente.
 
-Cuando se encuentre un defecto:
+## 14. Gestión de defectos
 
-1. Se registrará en `Registro_de_defectos.md`.
-2. Se asignará una severidad.
-3. Se analizará la causa.
-4. Se realizará una corrección cuando corresponda.
-5. La modificación quedará registrada mediante Git y GitHub.
-6. Se volverá a ejecutar el caso de prueba.
-7. Si la prueba resulta correcta, el defecto podrá marcarse como corregido.
+Cuando se detecta un defecto:
 
----
+1. Se registra en `Registro_de_defectos.md`.
+2. Se relaciona con el caso de prueba correspondiente.
+3. Se asigna una severidad.
+4. Se analiza el problema.
+5. Se realiza la corrección cuando corresponde.
+6. La modificación se registra mediante Git y GitHub.
+7. Se vuelve a ejecutar la prueba afectada.
+8. Si el resultado es correcto, el defecto se marca como corregido.
 
-# 15. Riesgos de las pruebas
+## 15. Riesgos de las pruebas
 
 Se consideran los siguientes riesgos:
 
 - Tiempo limitado para ejecutar todos los casos.
 - Cambios realizados durante el Sprint 4.
-- Errores que aparezcan durante la integración de módulos.
+- Errores durante la integración de módulos.
 - Pérdida accidental de información de prueba.
 - Falta de disponibilidad del usuario para realizar la prueba de aceptación.
 - Correcciones que puedan generar nuevos errores.
 
-Para reducir estos riesgos se utilizará control de versiones mediante GitHub y se realizarán pruebas de regresión después de cambios importantes.
+### Medidas utilizadas para reducir los riesgos
 
----
+- Control de versiones mediante Git y GitHub.
+- Copias de seguridad cuando se realizan pruebas sobre la base de datos.
+- Repetición de pruebas después de cambios importantes.
+- Registro de defectos y correcciones.
 
-# 16. Relación con los requerimientos
+## 16. Relación con los requerimientos
 
-Los casos de prueba serán relacionados con los requerimientos definidos en `Requerimientos.md`.
+Los casos de prueba se relacionan con los requerimientos definidos en `Requerimientos.md`.
 
-Esto permitirá mantener trazabilidad entre:
+Esto permite mantener trazabilidad entre:
 
 **Requerimiento → Caso de prueba → Resultado → Defecto → Corrección**
 
-Esta relación permitirá demostrar qué se probó, qué errores fueron encontrados y qué modificaciones fueron realizadas durante el desarrollo.
+Esta relación permite demostrar:
 
----
+- Qué funcionalidad fue probada.
+- Qué resultado se obtuvo.
+- Qué problema fue encontrado.
+- Qué corrección se realizó.
+- Si la corrección funcionó posteriormente.
 
-# 17. Estado del plan
+## 17. Resultado de la ejecución
 
-Plan de pruebas definido.
+Durante el Sprint 4 se ejecutaron los casos de prueba principales del prototipo.
 
-La ejecución de los casos de prueba se realizará durante el Sprint 4.
+Las pruebas permitieron detectar defectos relacionados con:
+
+- Validación del inicio de sesión.
+- Mensajes de validación.
+- Validación de fechas.
+- Usabilidad.
+- Manejo de fallos.
+- Cierre de sesión.
+- Búsqueda de información.
+- Consulta de costos.
+
+Los defectos considerados dentro del alcance actual fueron corregidos y las funcionalidades afectadas fueron verificadas nuevamente.
+
+**Resultado:**  
+No existen defectos críticos pendientes dentro de los casos ejecutados.
+
+## 18. Estado del plan
+
+**Plan de pruebas definido y ejecutado para las funcionalidades principales del prototipo.**
+
+Los resultados y defectos se encuentran documentados.
+
+Las evidencias de ejecución se mantienen mediante capturas, documentación y control de versiones.
+
+La prueba de aceptación por parte de un usuario o representante queda como actividad independiente cuando corresponda.

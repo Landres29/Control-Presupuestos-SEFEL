@@ -10,7 +10,8 @@ from .styles import (
     COLOR_LINEA,
     FUENTE_TITULO,
     FUENTE_NORMAL,
-    FUENTE_NORMAL_NEGRITA
+    FUENTE_NORMAL_NEGRITA,
+    FUENTE_ENTRADA
 )
 
 from .database import obtener_resumen_costos
@@ -183,7 +184,34 @@ class CompareView:
             font=("Arial", 14, "bold")
         ).pack(
             anchor="w",
-            pady=(0, 15)
+            pady=(0, 10)
+        )
+
+        # Buscador
+        tk.Label(
+            panel,
+            text="Buscar obra",
+            bg=COLOR_BLANCO,
+            fg=COLOR_TEXTO,
+            font=FUENTE_NORMAL_NEGRITA
+        ).pack(
+            anchor="w"
+        )
+
+        self.entrada_busqueda = tk.Entry(
+            panel,
+            font=FUENTE_ENTRADA
+        )
+
+        self.entrada_busqueda.pack(
+            fill="x",
+            pady=(5, 15),
+            ipady=5
+        )
+
+        self.entrada_busqueda.bind(
+            "<KeyRelease>",
+            self.filtrar_comparacion
         )
 
         columnas = (
@@ -272,11 +300,13 @@ class CompareView:
 
         self.cargar_comparacion()
 
-    def cargar_comparacion(self):
+    def cargar_comparacion(self, filtro=""):
         for registro in self.tabla.get_children():
             self.tabla.delete(registro)
 
         datos = obtener_resumen_costos()
+
+        filtro = filtro.lower().strip()
 
         fila_seleccionada = None
 
@@ -284,6 +314,9 @@ class CompareView:
             nombre = dato[1]
             presupuesto = dato[2]
             gastos = dato[3]
+
+            if filtro != "" and filtro not in nombre.lower():
+                continue
 
             diferencia = presupuesto - gastos
 
@@ -316,6 +349,11 @@ class CompareView:
             self.tabla.selection_set(fila_seleccionada)
             self.tabla.focus(fila_seleccionada)
             self.tabla.see(fila_seleccionada)
+
+    def filtrar_comparacion(self, event=None):
+        texto = self.entrada_busqueda.get()
+
+        self.cargar_comparacion(texto)
 
     def ir_obras(self):
         from .main_view import MainView

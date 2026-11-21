@@ -100,4 +100,35 @@ Corrección de defectos funcionales detectados durante las pruebas del sistema.
 -DEF-011 - La opción Ver costos no funciona.
 
 **Estado:**  
-En desarrollo.
+Finalizado.
+
+## Versión 1.4 - Correcciones finales y mejoras de validación
+
+**Versión anterior:** v1.3
+
+**Nueva versión:** v1.4
+
+**Tipo de cambio:**
+Corrección de defectos y mejoras de validación y usabilidad.
+
+**Cambios realizados:**
+
+- Se corrigió DEF-008, agregando una comprobación de existencia de la base de datos antes de iniciar el sistema.
+- Se evita la creación silenciosa de una nueva base de datos cuando sefel.db no está disponible.
+- Se corrigió DEF-004, mejorando los mensajes de validación de montos en Presupuestos.
+- Se corrigió DEF-005, mejorando los mensajes de validación de montos en Gastos.
+- Se corrigió DEF-007, incorporando búsqueda de obras en la comparación de costos.
+- Se mantuvieron las correcciones realizadas en versiones anteriores.
+
+**Casos de prueba relacionados:**
+
+- CP-008
+- CP-009
+- CP-010
+- CP-012
+- CP-013
+- CP-015
+- CP-017
+
+**Estado:**
+Finalizado.

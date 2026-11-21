@@ -137,7 +137,7 @@ Usabilidad.
 Baja.
 
 **Estado:**  
-Pendiente de corrección.
+Corregido.
 
 **Corrección propuesta:**  
 Modificar la validación del campo monto para mostrar mensajes diferentes según el error detectado, facilitando que el usuario comprenda por qué el valor ingresado fue rechazado.
@@ -171,7 +171,7 @@ Usabilidad.
 Baja.
 
 **Estado:**  
-Pendiente de corrección.
+Corregido.
 
 **Corrección propuesta:**  
 Modificar la validación del monto en el módulo de gastos para mostrar mensajes distintos según el tipo de error detectado.
@@ -262,7 +262,7 @@ Usabilidad.
 Baja.
 
 **Estado:**  
-Pendiente de corrección.
+Corregido.
 
 **Corrección propuesta:**  
 Mejorar la interfaz del módulo de comparación de costos incorporando opciones que faciliten la consulta de información.
@@ -277,6 +277,29 @@ Por ejemplo:
 
 **Evidencia:**  
 Captura correspondiente al caso de prueba CP-015.
+
+## DEF-008 - El sistema crea una nueva base de datos sin informar la ausencia de la original
+
+**Caso de prueba relacionado:** CP-017
+
+**Requerimiento relacionado:** RF-09 / RNF-06
+
+**Funcionalidad afectada:** Base de datos / Manejo de fallos
+
+**Tipo de defecto:** Funcionalidad / Recuperación
+
+**Severidad:** Media
+
+**Corrección realizada:**
+Se agregó una comprobación al iniciar la aplicación para verificar que exista el archivo sefel.db.
+
+Si la base de datos no existe, el sistema muestra un mensaje de error y evita continuar, impidiendo que SQLite cree silenciosamente una nueva base de datos vacía.
+
+**Verificación:**
+Se renombró temporalmente la base de datos original y se ejecutó nuevamente la aplicación. El sistema informó correctamente que la base de datos no estaba disponible y no creó una nueva automáticamente.
+
+**Estado:**
+Corregido.
 
 ## DEF-009 - La opción Cerrar sesión no funciona
 
@@ -344,7 +367,7 @@ Funcionalidad / Usabilidad.
 Media.
 
 **Estado:**  
-Pendiente de corrección.
+Corregido.
 
 **Corrección propuesta:**  
 Implementar la lógica de búsqueda para que la tabla de obras se actualice según el texto ingresado.

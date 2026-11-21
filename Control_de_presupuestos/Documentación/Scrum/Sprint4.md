@@ -2,38 +2,41 @@
 
 ## Objetivo
 
-Implementar la comparación de costos entre los montos presupuestados y los gastos registrados de cada obra, además de realizar las pruebas necesarias para comprobar el funcionamiento general del prototipo.
+Implementar la comparación de costos entre los montos presupuestados y los gastos registrados de cada obra, además de ejecutar las pruebas necesarias para comprobar el funcionamiento general del prototipo.
 
-## Actividades
+## Actividades realizadas
 
-Durante este Sprint se consideran las siguientes actividades:
+Durante este Sprint se realizaron las siguientes actividades:
 
-- Implementar la comparación entre presupuestos y gastos.
-- Obtener la información almacenada en la base de datos.
-- Calcular la diferencia entre el monto presupuestado y el gasto real.
-- Identificar el estado de cada obra según el resultado de la comparación.
-- Mostrar los resultados de la comparación en una tabla.
-- Revisar la navegación entre las diferentes pantallas.
-- Comprobar el funcionamiento de las principales funcionalidades.
-- Ejecutar pruebas funcionales.
-- Ejecutar pruebas de seguridad definidas para el prototipo.
-- Ejecutar pruebas de usabilidad.
-- Registrar los errores o defectos encontrados.
-- Corregir los defectos identificados.
-- Realizar pruebas de regresión después de las correcciones.
-- Preparar el prototipo para su revisión.
+- Implementación de la comparación entre presupuestos y gastos.
+- Obtención de información almacenada en SQLite.
+- Cálculo de la diferencia entre el monto presupuestado y los gastos reales.
+- Identificación del estado de cada obra según el resultado de la comparación.
+- Presentación de los resultados mediante una tabla.
+- Revisión de la navegación entre las diferentes pantallas.
+- Pruebas de las funcionalidades principales.
+- Ejecución de pruebas funcionales.
+- Ejecución de pruebas de seguridad correspondientes al alcance del prototipo.
+- Ejecución de pruebas de usabilidad.
+- Pruebas de persistencia y manejo de fallos.
+- Registro de errores y defectos encontrados.
+- Clasificación de los defectos según su severidad.
+- Corrección de los defectos detectados.
+- Repetición de las pruebas después de las correcciones.
+- Registro de los cambios mediante Git y GitHub.
+- Preparación del prototipo para su revisión final.
 
 ## Responsable
 
-Equipo completo.
+**Equipo completo.**
 
 ## Duración estimada
 
-1 semana.
+**1 semana.**
 
 ## Entregable
 
-Prototipo funcional y pruebas.
+**Prototipo funcional y pruebas.**
 
 ## Funcionalidades implementadas
 
@@ -54,9 +57,9 @@ La diferencia se calcula mediante:
 
 Según el resultado:
 
-- Una diferencia positiva indica que el gasto se encuentra bajo el presupuesto.
-- Una diferencia negativa indica que los gastos superan el presupuesto.
-- Una diferencia igual a cero indica equilibrio entre presupuesto y gastos.
+- Una diferencia positiva corresponde a **Superávit**.
+- Una diferencia negativa corresponde a **Déficit**.
+- Una diferencia igual a cero corresponde a **Equilibrado**.
 
 ### Consulta de resultados
 
@@ -68,96 +71,151 @@ Los resultados se presentan en una tabla que permite visualizar:
 - Diferencia.
 - Estado.
 
-Los datos utilizados deben provenir de la base de datos y no de valores escritos directamente en el código.
+Los valores utilizados provienen de los registros almacenados en SQLite.
+
+Como mejora de usabilidad, el módulo de comparación permite buscar una obra utilizando su nombre completo o parcial.
+
+Además, desde la pantalla principal es posible seleccionar una obra y acceder directamente a su información de comparación mediante doble clic.
 
 ## Pruebas del sistema
 
-Durante este Sprint se realizará la etapa principal de pruebas del prototipo.
+Durante este Sprint se ejecutó la etapa principal de pruebas del prototipo.
 
-Se considerarán principalmente:
+Se realizaron principalmente:
 
 - Pruebas funcionales.
 - Pruebas de seguridad.
 - Pruebas de usabilidad.
-- Pruebas de recuperación cuando corresponda.
+- Pruebas de persistencia.
+- Pruebas de recuperación.
 - Pruebas de regresión después de realizar correcciones.
 
-No se consideran pruebas de carga, estrés o rendimiento para esta etapa del proyecto.
+No se realizaron pruebas de carga, estrés ni rendimiento avanzado, debido a que no forman parte del alcance definido para este prototipo.
 
-## Niveles de prueba
+## Niveles de prueba considerados
 
-Se trabajará con los siguientes niveles:
+Se trabajó principalmente con:
 
-- Pruebas unitarias.
-- Pruebas de integración.
-- Pruebas de sistema.
+- Pruebas unitarias sobre funciones y validaciones específicas.
+- Pruebas de integración entre interfaz, lógica y SQLite.
+- Pruebas de sistema utilizando el flujo completo del prototipo.
 
-La prueba de aceptación deberá ser realizada por un usuario o representante correspondiente.
+La prueba de aceptación corresponde a un usuario o representante y se considera una actividad independiente de las pruebas realizadas por el equipo de desarrollo.
 
 ## Registro de defectos
 
-Los defectos encontrados durante las pruebas deberán registrarse indicando como mínimo:
+Los defectos encontrados durante las pruebas fueron registrados en `Registro_de_defectos.md`.
 
-- Identificador del defecto.
+Para cada defecto se documentó, según correspondía:
+
+- Identificador.
+- Caso de prueba relacionado.
+- Requerimiento relacionado.
 - Funcionalidad afectada.
 - Descripción.
-- Datos utilizados.
 - Resultado esperado.
 - Resultado obtenido.
-- Nivel de severidad.
-- Estado del defecto.
-- Corrección realizada, cuando corresponda.
+- Tipo de defecto.
+- Severidad.
+- Estado.
+- Corrección realizada.
+- Evidencia.
 
-Los niveles de severidad serán definidos en el Plan de Pruebas.
+Durante las pruebas se detectaron defectos relacionados con:
+
+- Inicio de sesión.
+- Validación de credenciales.
+- Mensajes de validación de montos.
+- Validación de fechas.
+- Usabilidad de la comparación de costos.
+- Manejo de ausencia de la base de datos.
+- Cierre de sesión.
+- Búsqueda de obras.
+- Acceso a la comparación desde una obra.
+
+Los defectos incluidos dentro del alcance actual fueron corregidos y posteriormente verificados.
 
 ## Seguridad
 
-Durante este Sprint también se revisarán aspectos relacionados con:
+Durante este Sprint se revisaron principalmente:
 
-- Confidencialidad.
-- Integridad.
-- Disponibilidad.
-- Validación de usuarios.
+- Validación de usuario y contraseña.
 - Rechazo de usuarios inexistentes.
-- Control de intentos incorrectos de inicio de sesión.
-- Manejo de errores y fallos del sistema.
+- Rechazo de contraseñas incorrectas.
+- Control de acceso.
+- Cierre de sesión.
+- Integridad de los datos.
+- Persistencia de la información.
+- Manejo de ausencia de la base de datos.
 
-Las medidas específicas serán implementadas y verificadas mediante sus respectivos casos de prueba.
+**Mejora futura:**  
+El bloqueo temporal después de varios intentos fallidos de inicio de sesión no forma parte de la versión actual y queda considerado como una posible mejora para una versión futura.
 
 ## Control de versiones
 
-Todos los cambios, correcciones y mejoras realizados durante este Sprint deberán registrarse mediante Git y GitHub.
+Los cambios, correcciones y mejoras realizados durante el Sprint fueron registrados mediante Git y GitHub.
 
-Las correcciones importantes deberán quedar identificadas mediante commits separados para mantener la trazabilidad de los cambios realizados después de las pruebas.
+Se utilizaron commits separados para identificar las principales correcciones realizadas después de las pruebas.
+
+Esto permite mantener trazabilidad entre:
+
+**Prueba → Defecto → Corrección → Commit**
 
 ## Revisión del Sprint
 
-Al finalizar el Sprint se deberá comprobar:
+Al finalizar el Sprint se comprobó:
 
-- Que la comparación utilice datos reales almacenados en SQLite.
-- Que los cálculos de presupuesto, gastos y diferencia sean correctos.
-- Que el estado mostrado corresponda al resultado obtenido.
-- Que las principales funcionalidades del sistema puedan utilizarse correctamente.
-- Que los usuarios definidos para las pruebas se encuentren disponibles.
-- Que los casos de prueba hayan sido ejecutados.
-- Que los defectos encontrados estén registrados.
-- Que los defectos críticos hayan sido corregidos antes de finalizar la etapa.
-- Que las correcciones hayan sido verificadas mediante pruebas de regresión.
-- Que los cambios realizados estén registrados en GitHub.
+- Que la comparación utiliza información almacenada en SQLite.
+- Que los cálculos de presupuesto, gastos y diferencia son correctos.
+- Que el estado mostrado corresponde al resultado calculado.
+- Que las principales funcionalidades pueden utilizarse correctamente.
+- Que el inicio de sesión valida las credenciales.
+- Que las validaciones de montos funcionan correctamente.
+- Que las fechas inválidas son rechazadas.
+- Que los datos permanecen almacenados después de reiniciar la aplicación.
+- Que el sistema informa cuando la base de datos original no está disponible.
+- Que el cierre de sesión funciona correctamente.
+- Que la búsqueda de obras funciona.
+- Que es posible acceder a la comparación desde una obra.
+- Que el buscador de la comparación funciona.
+- Que los casos de prueba principales fueron ejecutados.
+- Que los defectos encontrados fueron registrados.
+- Que los defectos críticos encontrados fueron corregidos.
+- Que las correcciones fueron verificadas mediante nuevas ejecuciones de las pruebas.
+- Que los cambios realizados quedaron registrados mediante Git y GitHub.
 
 ## Evidencias
 
-Las evidencias correspondientes al Sprint pueden incluir:
+Las evidencias del Sprint incluyen:
 
 - Historial de commits en GitHub.
+- Capturas del prototipo.
 - Capturas de la comparación de costos.
 - Casos de prueba ejecutados.
 - Resultados obtenidos.
 - Registro de defectos.
-- Evidencias antes y después de las correcciones.
-- Resultados de las pruebas de regresión.
-- Capturas del prototipo funcional.
+- Evidencias anteriores y posteriores a las correcciones.
+- Verificación de las correcciones.
+- Documento Word con capturas y evidencias de las pruebas.
+
+## Resultado del Sprint
+
+Se obtuvo un prototipo funcional capaz de:
+
+- Gestionar obras.
+- Registrar presupuestos.
+- Registrar gastos.
+- Mantener información mediante SQLite.
+- Comparar presupuestos y gastos.
+- Identificar superávit, déficit o equilibrio.
+- Validar los principales datos ingresados.
+- Controlar el acceso mediante inicio y cierre de sesión.
+- Buscar obras.
+- Acceder a los costos de una obra.
+- Manejar de forma controlada la ausencia de la base de datos.
+
+Los defectos identificados durante las pruebas y considerados dentro del alcance actual fueron corregidos.
 
 ## Estado
 
-En desarrollo.
+**Finalizado.**
