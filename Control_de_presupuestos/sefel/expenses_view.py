@@ -418,32 +418,74 @@ class ExpensesView:
         monto_texto = self.entrada_monto.get().strip()
         fecha = self.entrada_fecha.get().strip()
 
-        if (
-            indice == -1
-            or partida == ""
-            or concepto == ""
-            or monto_texto == ""
-            or fecha == ""
-        ):
+        # Validar obra
+        if indice == -1:
             messagebox.showerror(
                 "Datos incompletos",
-                "Debe completar todos los campos."
+                "Debe seleccionar una obra."
             )
             return
 
+        # Validar partida
+        if partida == "":
+            messagebox.showerror(
+                "Datos incompletos",
+                "Debe ingresar una partida."
+            )
+            return
+
+        # Validar concepto
+        if concepto == "":
+            messagebox.showerror(
+                "Datos incompletos",
+                "Debe ingresar un concepto."
+            )
+            return
+
+        # Validar monto vacío
+        if monto_texto == "":
+            messagebox.showerror(
+                "Monto requerido",
+                "Debe ingresar un monto."
+            )
+            return
+
+        # Validar que el monto sea numérico
         try:
             monto = float(monto_texto)
-
-            if monto <= 0:
-                raise ValueError
 
         except ValueError:
             messagebox.showerror(
                 "Monto inválido",
-                "El monto debe ser un número mayor que cero."
+                "El monto debe ser un valor numérico."
             )
             return
 
+        # Validar monto negativo
+        if monto < 0:
+            messagebox.showerror(
+                "Monto inválido",
+                "El monto no puede ser negativo."
+            )
+            return
+
+        # Validar monto igual a cero
+        if monto == 0:
+            messagebox.showerror(
+                "Monto inválido",
+                "El monto debe ser mayor que cero."
+            )
+            return
+
+        # Validar fecha vacía
+        if fecha == "":
+            messagebox.showerror(
+                "Fecha requerida",
+                "Debe ingresar una fecha."
+            )
+            return
+
+        # Validar formato y fecha real
         try:
             fecha_convertida = datetime.strptime(
                 fecha,
@@ -457,7 +499,7 @@ class ExpensesView:
             )
             return
 
-        # Evitar años fuera del rango esperado
+        # Validar año mínimo
         if fecha_convertida.year < 2000:
             messagebox.showerror(
                 "Fecha inválida",
