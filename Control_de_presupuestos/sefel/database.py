@@ -2,11 +2,25 @@ import sqlite3
 import os
 
 
-def obtener_conexion():
-    ruta = os.path.join(
+def obtener_ruta_base_datos():
+    return os.path.join(
         os.path.dirname(os.path.dirname(__file__)),
         "sefel.db"
     )
+
+
+def base_datos_existe():
+    ruta = obtener_ruta_base_datos()
+    return os.path.exists(ruta)
+
+
+def obtener_conexion():
+    ruta = obtener_ruta_base_datos()
+
+    if not os.path.exists(ruta):
+        raise FileNotFoundError(
+            "No se encontró la base de datos sefel.db."
+        )
 
     conexion = sqlite3.connect(ruta)
     return conexion
